@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>expediente</name>
+    </assembly>
+    <members>
+        <member name="M:Classes.DegreeController.Get">
+            <summary>
+            Mostrar todos los grados
+            </summary>
+            <returns>Todos los grados</returns>
+            <response code="200">Devuelve el listado de grados</response>
+            <response code="500">Si hay algún error</response>
+        </member>
+        <member name="M:Classes.DegreeController.Post(Classes.Degree)">
+            <summary>
+            añadir grados
+            </summary>
+            <returns>Todos los grados</returns>
+            <response code="201">Se ha creado correctamente</response>
+            <response code="500">Si hay algún error</response>
+        </member>
+        <member name="M:Classes.DegreeController.Update(Classes.Degree,System.String)">
+             <summary>
+            Actualizar los grados
+             </summary>
+             <returns>Todos los grados</returns>
+             <response code="201">Devuelve el listado de grados</response>
+             <response code="500">Si hay algún error</response>
+        </member>
+        <member name="M:Classes.DegreeController.Delete(System.Int32)">
+            <summary>
+            Eliminar grados seleccionados
+            </summary>
+            <returns>Todos los grados</returns>
+            <response code="200">Se ha eliminado</response>
+            <response code="500">Si hay algún error</response>
+        </member>
+        <member name="M:Classes.PagosController.Get">
+            <summary>
+            Mostrar todos los usuarios
+            </summary>
+            <returns>Todos los usuaruos</returns>
+            <response code="200">Devuelve el listado de usuarios</response>
+            <response code="500">Si hay algún error</response>
+        </member>
+        <member name="M:Classes.PagosController.Post(Classes.Pago)">
+            <summary>
+            añadir menus
+            </summary>
+            <returns>Todos los usuarios</returns>
+            <response code="201">Se ha creado correctamente</response>
+            <response code="500">Si hay algún error</response>
+        </member>
+        <member name="M:Classes.PagosController.Update(Classes.Pago,System.Int32)">
+             <summary>
+            Actualizar los usurios
+             </summary>
+             <returns>Todos los usuarios</returns>
+             <response code="201">Devuelve el listado de usuarios</response>
+             <response code="500">Si hay algún error</response>
+        </member>
+        <member name="M:Classes.PagosController.Delete(System.Int32)">
+            <summary>
+            Eliminar usuarios seleccionados
+            </summary>
+            <returns>Todos los usuarios</returns>
+            <response code="200">Se ha eliminado</response>
+            <response code="500">Si hay algún error</response>
+        </member>
+        <member name="M:Classes.UsersController.Get">
+            <summary>
+            Mostrar todos los usuarios
+            </summary>
+            <returns>Todos los usuaruos</returns>
+            <response code="200">Devuelve el listado de usuarios</response>
+            <response code="500">Si hay algún error</response>
+        </member>
+        <member name="M:Classes.UsersController.Post(Classes.User)">
+            <summary>
+            añadir usuarios
+            </summary>
+            <returns>Todos los usuarios</returns>
+            <response code="201">Se ha creado correctamente</response>
+            <response code="500">Si hay algún error</response>
+        </member>
+        <member name="M:Classes.UsersController.Update(Classes.User,System.String)">
+             <summary>
+            Actualizar los usurios
+             </summary>
+             <returns>Todos los usuarios</returns>
+             <response code="201">Devuelve el listado de usuarios</response>
+             <response code="500">Si hay algún error</response>
+        </member>
+        <member name="M:Classes.UsersController.Delete(System.Int32)">
+            <summary>
+            Eliminar usuarios seleccionados
+            </summary>
+            <returns>Todos los usuarios</returns>
+            <response code="200">Se ha eliminado</response>
+            <response code="500">Si hay algún error</response>
+        </member>
+    </members>
+</doc>
