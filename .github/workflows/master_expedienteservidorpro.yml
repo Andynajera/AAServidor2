@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'expedienteServidorPRO'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_12A60F310056419FA2BB7978F6CC9586 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_91ACCCD2C89A4BEEB08023702AC2C6A0 }}
           package: .
