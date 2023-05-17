@@ -54,9 +54,10 @@ public class UsersController : ControllerBase
     /// <response code="500">Si hay algún error</response>
     [HttpGet]
     [Route("name")] 
-    public ActionResult<User> Get(string name)
+    public ActionResult<User> Get(string name ,bool gender)
     {
-  List<User> user =_context.User.Where(x=> x.name.Contains(name)).OrderByDescending(x=>x.name).ToList();
+        
+  List<User> user =_context.User.Where(x=> x.gender == gender && x.name.Contains(name)).OrderByDescending(x=>x.name).ToList();
         //buscar por nombre   
         return user == null? NotFound()
             : Ok(user);
@@ -129,13 +130,13 @@ public class UsersController : ControllerBase
         userToUpdate.email=user.email;
         userToUpdate.nameDegree=user.nameDegree;
         userToUpdate.gender=user.gender;
-        userToUpdate.birth=user.birth;
-        userToUpdate.height=user.height;
+        userToUpdate.matriculacion=user.matriculacion;
+        userToUpdate.asignaturaMAtriculadas=user.asignaturaMAtriculadas;
         userToUpdate.notas=user.notas;
 
         _context.SaveChanges();
         string resourceUrl = Request.Path.ToString() + "/" + userToUpdate.name;
-
+ 
         return Created(resourceUrl, userToUpdate);
     }
 
@@ -145,7 +146,7 @@ public class UsersController : ControllerBase
     /// <returns>Todos los usuarios</returns>
     /// <response code="200">Se ha eliminado</response>
     /// <response code="500">Si hay algún error</response>
-        [HttpDelete ("{id:int}" )]
+   /*     [HttpDelete ("{id:int}" )]
     public  ActionResult Delete (int id)
     {
         User userToDelete = _context.User.Find(id);
@@ -155,7 +156,43 @@ public class UsersController : ControllerBase
         }
         _context.User.Remove(userToDelete);
         _context.SaveChanges();
+         if (userToDelete == null)
+        {
+            return NotFound();
+        }
         return Ok(userToDelete);
     }
+*/
+ [HttpDelete ]
+         [Route("{id}")]
 
+ public  ActionResult Delete (int id)
+    {
+        if (id == null)
+        {
+            return BadRequest();
+        }
+        else
+        {
+            User userToDelete = _context.User.Find(id);
+            if (userToDelete == null)
+            {
+                return NotFound("usuario no encontrado");
+            }
+            _context.User.Remove(userToDelete);
+             _context.SaveChanges();
+            var orders = _context.OrderPros.ToList();
+            orders.ForEach(o =>
+            {
+                if (o.UserId == id)
+                {
+                    _context.OrderPros.Remove(o);
+                }
+                _context.SaveChanges();
+                
+            });
+            return Ok();
+
+        }
+        }
 }
