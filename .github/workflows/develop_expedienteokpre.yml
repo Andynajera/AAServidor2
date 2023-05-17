@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'expedienteOKPRE'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5A8C353861084A26AFE036C944270E5E }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0D8C6CFDE4864CAE858485435B691241 }}
           package: .
