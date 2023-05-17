@@ -6,7 +6,6 @@ namespace Classes;
      public int id {get;set;}
     public int UserId { get;set; }
     public int PagoId { get;set; }
-
  }
  
 
