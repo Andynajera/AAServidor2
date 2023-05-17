@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Mvc;
 using Data;
 using Classes;
@@ -41,7 +40,6 @@ public class PagosController : ControllerBase
     [Route("{id}")]
     public ActionResult<Pago> Get(int id)
     {
-
         //buscar por nombre
         return pago == null? NotFound()
             : Ok(pago);
@@ -57,12 +55,12 @@ public class PagosController : ControllerBase
     [Route("pagado")] 
     public ActionResult<Pago> Get(bool pagado)
     {
-  List<Pago> pago =_context.Pagos.Where(x=>x.pagado).ToList();
-        //buscar por nombre   
+        
+  List<Pago> pago =_context.Pagos.Where(x=> x.pagado == pagado).ToList();
+        //buscar por bool   
         return pago == null? NotFound()
             : Ok(pago);
     }
-
     /// <summary>
     /// añadir pagos
     /// </summary>
@@ -72,11 +70,9 @@ public class PagosController : ControllerBase
    /* [HttpPost]
     public ActionResult<User> Post([FromBody] User user)
     {
-
         user.id=0;
         _context.User.Add(user);
         _context.SaveChanges();
-
         string resourceUrl = Request.Path.ToString() + "/" + user.id;
         return Created(resourceUrl, user);
     }
@@ -114,6 +110,7 @@ public class PagosController : ControllerBase
         {
             return NotFound("usuario no encontrado");
         }
+        pagoToUpdate.name=pago.name;
         pagoToUpdate.price=pago.price;
         pagoToUpdate.date=pago.date;
         pagoToUpdate.total=pago.total;
@@ -132,7 +129,7 @@ public class PagosController : ControllerBase
     /// <returns>Todos los pagos</returns>
     /// <response code="200">Se ha eliminado</response>
     /// <response code="500">Si hay algún error</response>
-        [HttpDelete("{id:int}")]
+   /*     [HttpDelete("{id:int}")]
     public ActionResult Delete(int id)
     {
         Pago pagoToDelete = _context.Pagos.Find(id);
@@ -143,6 +140,37 @@ public class PagosController : ControllerBase
         _context.Pagos.Remove(pagoToDelete);
         _context.SaveChanges();
         return Ok(pagoToDelete);
+    }
+    */
+      [HttpDelete("{id:int}")]
+    public ActionResult Delete(int id)
+    {
+        if (id == null)
+        {
+            return BadRequest();
+        }
+        else
+        {
+            Pago pagoToDelete = _context.Pagos.Find(id);
+            if (pagoToDelete == null)
+            {
+                return NotFound("menu no encontrado");
+            }
+            _context.Pagos.Remove(pagoToDelete);
+            _context.SaveChanges();
+            var orders = _context.OrderPros.ToList();
+            orders.ForEach(o =>
+            {
+                if (o.PagoId == id)
+                {
+                    _context.OrderPros.Remove(o);
+                }
+                _context.SaveChanges();
+                
+            });
+            return Ok();
+
+        }
     }
 
 }

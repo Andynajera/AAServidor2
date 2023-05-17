@@ -13,7 +13,6 @@ public class Pago
     public bool pagado { get;set; }
     public DateTime date { get;set; }
     public string notes { get;set; }
-    public virtual ICollection<User>Users{get;set;}
 }
 
 /*

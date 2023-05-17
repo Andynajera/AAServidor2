@@ -14,6 +14,7 @@ namespace Data
         public DbSet<User>? User { get; set; }
         public DbSet<Degree>? Degrees { get; set; }
         public DbSet<Pago>? Pagos { get; set; }
-        
+        public DbSet<OrderPro>? OrderPros { get; set; }
+
     }
 }

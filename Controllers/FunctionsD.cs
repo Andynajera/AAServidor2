@@ -30,7 +30,10 @@ public class DegreeController : ControllerBase
     public ActionResult<List<Degree>> Get()
     {
         List<Degree> degree = _context.Degrees.ToList();
-        return   Ok(degree);
+
+
+        return degree == null ? NotFound()
+              : Ok(degree);
     }
     /// <summary>
     /// Buscar por id
@@ -42,24 +45,24 @@ public class DegreeController : ControllerBase
     [Route("{id:int}")]
     public ActionResult<Degree> Get(int id)
     {
-    Degree Degree = _context.Degrees.Find(id);
-        return Degree == null? NotFound()
+        Degree Degree = _context.Degrees.Find(id);
+        return Degree == null ? NotFound()
             : Ok(Degree);
     }
-/// <summary>
+    /// <summary>
     /// Buscar por nombre
     /// </summary>
     /// <returns>Todos los grados con el mismo nombre</returns>
     /// <response code="200">Devuelve el listado de grados</response>
     /// <response code="500">Si hay algún error</response>
-//Buscar por nombre
-   [HttpGet]
-    [Route("name")] 
+    //Buscar por nombre
+    [HttpGet]
+    [Route("name")]
     public ActionResult<Degree> Get(string name)
     {
-  List<Degree> degree =_context.Degrees.Where(x=> x.name.Contains(name)).OrderByDescending(x=>x.name).ToList();
+        List<Degree> degree = _context.Degrees.Where(x => x.name.Contains(name)).OrderByDescending(x => x.name).ToList();
         //buscar por nombre   
-        return degree == null? NotFound()
+        return degree == null ? NotFound()
             : Ok(degree);
     }
     /// <summary>
@@ -72,7 +75,7 @@ public class DegreeController : ControllerBase
     public ActionResult<User> Post([FromBody] Degree degree)
     {
 
-        degree.id=0;
+        degree.id = 0;
         _context.Degrees.Add(degree);
         _context.SaveChanges();
 
@@ -93,17 +96,17 @@ public class DegreeController : ControllerBase
         {
             return NotFound("grado no encontrado");
         }
-        degreeToUpdate.name=degree.name;
-        degreeToUpdate.nameDegree=degree.nameDegree;
-        degreeToUpdate.quedanPlazas=degree.quedanPlazas;
-        degreeToUpdate.dataExpediente=degree.dataExpediente;
-        degreeToUpdate.price=degree.price;
-        degreeToUpdate.cantidadPlazas=degree.cantidadPlazas;
+        degreeToUpdate.name = degree.name;
+        degreeToUpdate.nameDegree = degree.nameDegree;
+        degreeToUpdate.quedanPlazas = degree.quedanPlazas;
+        degreeToUpdate.dataExpediente = degree.dataExpediente;
+        degreeToUpdate.price = degree.price;
+        degreeToUpdate.cantidadPlazas = degree.cantidadPlazas;
 
 
         _context.SaveChanges();
         string resourceUrl = Request.Path.ToString() + "/" + degreeToUpdate.name;
-
+        
         return Created(resourceUrl, degreeToUpdate);
     }
 
@@ -113,7 +116,7 @@ public class DegreeController : ControllerBase
     /// <returns>Todos los grados</returns>
     /// <response code="200">Se ha eliminado</response>
     /// <response code="500">Si hay algún error</response>
-        [HttpDelete("{id:int}")]
+    [HttpDelete("{id:int}")]
     public ActionResult Delete(int id)
     {
         Degree degreeToDelete = _context.Degrees.Find(id);
@@ -123,6 +126,10 @@ public class DegreeController : ControllerBase
         }
         _context.Degrees.Remove(degreeToDelete);
         _context.SaveChanges();
+        if (degreeToDelete == null)
+        {
+            return NotFound();
+        }
         return Ok(degreeToDelete);
     }
 
